@@ -1,0 +1,39 @@
+@use '../styles/variables.module' as *;
+
+.home {
+    min-height: 100svh;
+    background: $paper;
+    color: $ink;
+}
+.hero {
+    min-height: 100svh;
+    display: grid;
+    place-items: center;
+    text-align: center;
+    padding: 48px 24px;
+}
+.mark {
+    margin: 0 0 18px;
+    font-family: $serif;
+    font-size: clamp(15px, 1.6vw, 18px);
+    font-weight: 400;
+    letter-spacing: .32em;
+    text-transform: uppercase;
+    color: $moss;
+}
+.headline {
+    margin: 0 0 20px;
+    font-family: $serif;
+    font-size: clamp(34px, 6vw, 68px);
+    font-weight: 400;
+    letter-spacing: -.02em;
+    line-height: 1.15;
+}
+.subhead {
+    margin: 0;
+    max-width: 46ch;
+    font-family: $sans;
+    font-size: clamp(15px, 1.4vw, 18px);
+    line-height: 1.7;
+    color: rgba(17, 21, 16, .68);
+}

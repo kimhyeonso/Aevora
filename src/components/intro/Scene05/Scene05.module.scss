@@ -1,0 +1,88 @@
+@use '../../../styles/variables.module' as *;
+
+.scene05 {
+    position: relative;
+    // Scene04's own section carries no leftover scroll debt into this one,
+    // so no negative margin is needed here either. Transparent for the same
+    // reason as Scene04's outer section: an opaque fill here would paint
+    // over Scene04 the instant this section's box scrolls into view, before
+    // the frame itself ever gets a chance to fade in (see Scene04.module.scss
+    // for the fuller explanation of this failure mode).
+    height: calc(100svh + 3600px);
+    background: transparent;
+}
+.scene05-frame {
+    // Permanently fixed, like Scene04/06's frames — never GSAP-pinned — so
+    // it can't physically unpin and scroll away later and briefly expose
+    // whatever's behind it. See the long comment on .scene04-frame in
+    // Scene04.module.scss for the full story.
+    position: fixed;
+    inset: 0;
+    z-index: 1;
+    height: 100svh;
+    overflow: hidden;
+    isolation: isolate;
+    // Deep, near-black — the imagery we've passed through falls away here
+    // on purpose, so the few glimpses that do flash through read as memory,
+    // not scenery.
+    background: #050403;
+    color: #f3ece0;
+    // Hidden until Scene05.jsx's own timeline fades it in — see the matching
+    // comment on .scene04-frame for why this can't just default to visible.
+    opacity: 0;
+    visibility: hidden;
+}
+.scene05-glimpse {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 40%;
+    filter: brightness(.6) saturate(.85) blur(1.5px);
+    opacity: 0;
+    will-change: opacity;
+}
+.scene05-glimpse--one, .scene05-glimpse--two, .scene05-glimpse--three {
+    z-index: 1;
+}
+.scene05-line {
+    position: absolute;
+    z-index: 2;
+    top: 50%;
+    left: 50%;
+    margin: 0;
+    color: #f3ece0;
+    font-family: $serif;
+    font-size: clamp(26px, 3vw, 46px);
+    font-weight: 400;
+    letter-spacing: -.05em;
+    line-height: 1.4;
+    text-align: center;
+    text-shadow: 0 2px 24px rgba(0, 0, 0, .5);
+    transform: translate(-50%, -50%);
+    white-space: nowrap;
+}
+.scene05-line--one, .scene05-line--two, .scene05-line--three, .scene05-line--four {
+    top: 50%;
+}
+@media (max-width: 700px) {
+    .scene05-line {
+        max-width: calc(100vw - 48px);
+        font-size: clamp(23px, 6vw, 32px);
+        white-space: normal;
+    }
+}
+@media (prefers-reduced-motion: reduce) {
+    .scene05 {
+        height: 100svh;
+    }
+    .scene05-frame {
+        // Reduced motion never creates the ScrollTrigger that would fade
+        // this in (see the early return in Scene05.jsx), so it must fall
+        // back to sitting normally in document flow.
+        position: relative;
+        opacity: 1;
+        visibility: visible;
+    }
+}

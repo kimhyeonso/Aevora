@@ -1,0 +1,166 @@
+@use '../../../styles/variables.module' as *;
+
+.scene06 {
+    position: relative;
+    // The frame is fixed and contributes no flow height of its own (see
+    // .scene06-frame below), so this is pure scroll runway for its timeline,
+    // plus the trailing 100svh every scroll-driven scene needs so its final
+    // scrollTrigger position is actually reachable. Transparent for the same
+    // reason as Scene04/05's outer sections: an opaque fill here would paint
+    // over whatever scene comes before this one the instant this section's
+    // box scrolls into view, before the frame itself gets a chance to fade in.
+    height: calc(100svh + 3800px);
+    background: transparent;
+}
+.scene06-frame {
+    // Permanently fixed, like Scene04's frame — never GSAP-pinned — so it
+    // can't physically unpin and scroll away later and briefly expose
+    // whatever sits behind it (the bug fixed on Scene04; see the long
+    // comment on .scene04-frame in Scene04.module.scss for the full story).
+    position: fixed;
+    inset: 0;
+    z-index: 1;
+    height: 100svh;
+    overflow: hidden;
+    isolation: isolate;
+    background: #07080a;
+    color: #f3ece0;
+    // Hidden until Scene06.jsx's own timeline fades it in.
+    opacity: 0;
+    visibility: hidden;
+}
+.scene06-glow {
+    position: absolute;
+    z-index: 1;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0;
+    background: radial-gradient(ellipse 46% 40% at 50% 46%, rgba(246, 227, 168, .35), transparent 70%);
+    will-change: opacity;
+}
+.scene06-objects {
+    position: absolute;
+    z-index: 2;
+    inset: 0;
+    pointer-events: none;
+}
+.scene06-object {
+    position: absolute;
+    width: 40px;
+    will-change: transform, opacity;
+}
+.scene06-object svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    overflow: visible;
+    filter: drop-shadow(0 2px 6px rgba(0, 0, 0, .35));
+}
+.scene06-object--petal {
+    top: 22%;
+    left: 22%;
+}
+.scene06-object--droplet {
+    top: 24%;
+    left: 76%;
+    width: 30px;
+}
+.scene06-object--light {
+    top: 40%;
+    left: 50%;
+    width: 34px;
+}
+.scene06-object--leaf {
+    top: 72%;
+    left: 24%;
+}
+.scene06-object--tree {
+    top: 74%;
+    left: 72%;
+    width: 44px;
+}
+.scene06-bottle {
+    position: absolute;
+    z-index: 3;
+    top: 44%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+}
+.scene06-bottle svg {
+    display: block;
+    height: min(42vh, 360px);
+    width: auto;
+    overflow: visible;
+}
+.scene06-bottle-path {
+    fill: none;
+    stroke: #f3ece0;
+    stroke-width: 2.4;
+    stroke-linejoin: round;
+    stroke-linecap: round;
+    filter: drop-shadow(0 0 10px rgba(243, 236, 224, .25));
+}
+.scene06-line {
+    position: absolute;
+    z-index: 4;
+    top: 72%;
+    left: 50%;
+    margin: 0;
+    color: #f3ece0;
+    font-family: $serif;
+    font-size: clamp(26px, 3vw, 46px);
+    font-weight: 400;
+    letter-spacing: -.05em;
+    line-height: 1.4;
+    text-align: center;
+    text-shadow: 0 2px 24px rgba(0, 0, 0, .5);
+    transform: translate(-50%, -50%);
+    white-space: nowrap;
+}
+.scene06-line--one, .scene06-line--two {
+    top: 72%;
+}
+@media (max-width: 700px) {
+    .scene06-bottle svg {
+        height: min(34vh, 280px);
+    }
+    .scene06-line {
+        top: 80%;
+        max-width: calc(100vw - 48px);
+        font-size: clamp(23px, 6vw, 32px);
+        white-space: normal;
+    }
+    .scene06-object {
+        width: 32px;
+    }
+}
+@media (prefers-reduced-motion: reduce) {
+    .scene06 {
+        height: 100svh;
+    }
+    .scene06-frame {
+        position: relative;
+        opacity: 1;
+        visibility: visible;
+    }
+    .scene06-object--petal, .scene06-object--droplet, .scene06-object--leaf, .scene06-object--light {
+        top: 44%;
+        left: 50%;
+        transform: translate(-50%, -50%) scale(.6);
+    }
+    .scene06-object--petal {
+        margin-top: -20px;
+    }
+    .scene06-object--droplet {
+        margin-left: -30px;
+        margin-top: 6px;
+    }
+    .scene06-object--leaf {
+        margin-left: 30px;
+        margin-top: 6px;
+    }
+    .scene06-object--light {
+        margin-top: 26px;
+    }
+}

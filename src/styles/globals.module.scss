@@ -1,0 +1,21 @@
+@use './variables.module' as *;
+@use './reset.module';
+
+:global {
+    :root {
+        font-family: $sans;
+        color: $ink;
+        background: $paper;
+        font-synthesis: none;
+    }
+    body {
+        min-width: 320px;
+        background: $paper;
+    }
+    button, a {
+        -webkit-tap-highlight-color: transparent;
+    }
+}
+.intro-page {
+    overflow: clip;
+}

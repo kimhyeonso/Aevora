@@ -1,0 +1,222 @@
+@use '../../../styles/variables.module' as *;
+
+.scene02 {
+    position: relative;
+    // Pulled up so its pin engages, already at the top of the viewport,
+    // exactly when Scene01's frame starts its final fade-out (the last
+    // 560px of its 2800px pin) — see Scene01.jsx. This lets Scene02 sit
+    // fully in place behind Scene01 for a true crossfade, instead of it
+    // sliding up into view afterward.
+    margin-top: calc(-100svh - 560px);
+    // Match Scene02's ScrollTrigger end (+=4600), including the extended
+    // tail where the hero droplet hands off into Scene03, lands, and
+    // Scene03's own copy fades in right behind it.
+    height: calc(100svh + 4600px);
+    background: #09100b;
+}
+.scene02-frame {
+    position: relative;
+    z-index: 1;
+    height: 100svh;
+    overflow: hidden;
+    isolation: isolate;
+    background: #09100b;
+}
+.scene02-frame img {
+    position: absolute;
+    display: block;
+    pointer-events: none;
+    user-select: none;
+}
+.scene02-background {
+    z-index: 1;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    transform-origin: 50% 56%;
+    will-change: transform, opacity;
+}
+.scene02-background--two, .scene02-background--three {
+    opacity: 0;
+    visibility: hidden;
+}
+.scene02-background--three {
+    object-position: center;
+    transform-origin: 50% 62%;
+}
+.scene02-midground {
+    z-index: 2;
+    right: -3%;
+    bottom: -4%;
+    left: -3%;
+    width: 106%;
+    height: 106%;
+    object-fit: cover;
+    object-position: center;
+    transform-origin: 50% 60%;
+    mix-blend-mode: screen;
+    will-change: transform;
+}
+.scene02-fog {
+    z-index: 3;
+    right: -12%;
+    bottom: -5%;
+    left: -12%;
+    width: 124%;
+    height: 64%;
+    object-fit: cover;
+    object-position: center bottom;
+    filter: brightness(.68) contrast(.9) blur(.35px);
+    mix-blend-mode: screen;
+    will-change: transform, opacity;
+}
+.scene02-fog--two {
+    bottom: 9%;
+    height: 52%;
+    opacity: .32;
+    transform: scaleX(-1);
+}
+.scene02-foreground {
+    z-index: 4;
+    right: -8%;
+    bottom: -4%;
+    left: -8%;
+    width: 116%;
+    height: 104%;
+    object-fit: cover;
+    object-position: center bottom;
+    mix-blend-mode: screen;
+    pointer-events: none;
+    transform-origin: 50% 100%;
+    will-change: transform;
+}
+.scene02-sunrays {
+    position: absolute;
+    z-index: 5;
+    inset: 0;
+    opacity: 0;
+    pointer-events: none;
+    background: radial-gradient(ellipse 38% 48% at 50% 21%, rgba(255,214,138,.4), transparent 67%), repeating-conic-gradient(from 25deg at 50% 16%, transparent 0deg 8deg, rgba(255,218,148,.08) 9deg 11deg, transparent 12deg 22deg);
+    mix-blend-mode: screen;
+}
+.scene02-leaves {
+    position: absolute;
+    z-index: 6;
+    inset: -12%;
+    overflow: hidden;
+    pointer-events: none;
+}
+.scene02-leaves span {
+    position: absolute;
+    top: var(--leaf-y);
+    left: var(--leaf-x);
+    width: var(--leaf-size);
+    opacity: 0;
+    will-change: transform, opacity;
+    animation: scene02-leaf-drift var(--leaf-duration) linear var(--leaf-delay) infinite;
+}
+.scene02-leaves img {
+    display: block;
+    width: 100%;
+    height: auto;
+    filter: drop-shadow(0 7px 5px rgba(0,0,0,.28));
+}
+.scene02-rain {
+    --rain-intensity: 0;
+    position: absolute;
+    z-index: 7;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    pointer-events: none;
+    opacity: 0;
+}
+.scene02-copy {
+    position: absolute;
+    z-index: 9;
+    top: 50%;
+    left: 50%;
+    margin: 0;
+    color: #e8dfb7;
+    font-family: $serif;
+    font-size: clamp(24px, 2.6vw, 42px);
+    font-weight: 400;
+    letter-spacing: -.08em;
+    line-height: 1.35;
+    text-align: center;
+    text-shadow: 0 2px 18px rgba(0,0,0,.68);
+    transform: translateX(-50%);
+    white-space: nowrap;
+}
+.scene02-copy--middle, .scene02-copy--last {
+    top: 50%;
+}
+.scene02-vignette {
+    position: absolute;
+    z-index: 8;
+    inset: 0;
+    pointer-events: none;
+    background: radial-gradient(ellipse at 50% 48%, transparent 38%, rgba(3,8,4,.2) 100%), linear-gradient(rgba(3,8,4,.48), rgba(3,8,4,.48));
+}
+@keyframes scene02-leaf-drift {
+    0% {
+        opacity: 0;
+        transform: translate3d(-14vw,-16vh,0) rotate(var(--leaf-rotation));
+    }
+    10% {
+        opacity: .82;
+    }
+    58% {
+        opacity: .74;
+    }
+    100% {
+        opacity: 0;
+        transform: translate3d(24vw,128vh,0) rotate(calc(var(--leaf-rotation) + 620deg));
+    }
+}
+@media (max-width: 700px) {
+    .scene02-background {
+        width: 100%;
+        left: 0;
+        right: 0;
+    }
+    .scene02-copy {
+        max-width: calc(100vw - 48px);
+        font-size: clamp(22px, 6vw, 31px);
+        text-align: center;
+        white-space: normal;
+    }
+}
+@media (prefers-reduced-motion: reduce) {
+    .scene02 {
+        margin-top: 0;
+        height: 100svh;
+    }
+    .scene02-background {
+        transform: scale(1.1);
+    }
+    .scene02-midground {
+        transform: scale(1.16);
+    }
+    .scene02-foreground {
+        transform: scale(1.14) translateY(3%);
+    }
+    .scene02-fog--one {
+        transform: translateX(50px);
+    }
+    .scene02-fog--two {
+        transform: translateX(-42px) scaleX(-1);
+    }
+    .scene02-leaves span {
+        animation: none;
+    }
+    .scene02-rain {
+        opacity: .3;
+    }
+    .scene02-rain-layer--back i, .scene02-rain-layer--mid i, .scene02-rain-layer--front i {
+        animation: none;
+    }
+}

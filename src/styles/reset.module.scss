@@ -1,0 +1,14 @@
+:global {
+    *, *::before, *::after {
+        box-sizing: border-box;
+    }
+    html {
+        scroll-behavior: smooth;
+    }
+    body, h1, h2, p {
+        margin: 0;
+    }
+    button {
+        font: inherit;
+    }
+}

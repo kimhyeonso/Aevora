@@ -1,0 +1,136 @@
+@use '../../../styles/variables.module' as *;
+
+.scene07 {
+    position: relative;
+    // The frame is fixed and contributes no flow height of its own, so this
+    // is pure scroll runway for the camera-rush timeline, plus the trailing
+    // 100svh every scroll-driven scene needs so its final scrollTrigger
+    // position is actually reachable. Transparent for the same reason as
+    // every scene since Scene04: an opaque fill here would paint over
+    // Scene06 the instant this section's box scrolls into view, before the
+    // frame itself gets a chance to fade in.
+    height: calc(100svh + 2600px);
+    background: transparent;
+}
+.scene07-frame {
+    // Permanently fixed, like every scene since Scene04 — never
+    // GSAP-pinned — so it can't physically unpin and scroll away later and
+    // briefly expose whatever's behind it.
+    position: fixed;
+    inset: 0;
+    z-index: 1;
+    height: 100svh;
+    overflow: hidden;
+    isolation: isolate;
+    background: #07080a;
+    color: #f3ece0;
+    opacity: 0;
+    visibility: hidden;
+}
+// Same position and size as .scene06-bottle (top: 44%, same viewBox height)
+// on purpose — see the comment on BOTTLE_PATH in Scene07.jsx for why.
+.scene07-bottle-anchor {
+    position: absolute;
+    top: 44%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    will-change: top;
+}
+.scene07-bottle-group {
+    will-change: transform;
+}
+.scene07-bottle-group svg {
+    display: block;
+    height: min(42vh, 360px);
+    width: auto;
+    overflow: visible;
+}
+.scene07-bottle-fill {
+    fill: rgba(246, 236, 214, .16);
+    stroke: none;
+}
+.scene07-bottle-path {
+    fill: none;
+    stroke: #f3ece0;
+    stroke-width: 2.4;
+    stroke-linejoin: round;
+    stroke-linecap: round;
+    vector-effect: non-scaling-stroke;
+}
+// The second, filtered copy of the bottle, revealed only through a small
+// circular window that follows the cursor (see Scene07.jsx) — this is what
+// keeps the "glass bends near your cursor" effect localized instead of
+// warping the whole screen.
+.scene07-bottle-mask {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    mask-repeat: no-repeat;
+    -webkit-mask-repeat: no-repeat;
+    mask-image: radial-gradient(circle 100px at 50% 50%, #000 55%, transparent 100%);
+    -webkit-mask-image: radial-gradient(circle 100px at 50% 50%, #000 55%, transparent 100%);
+}
+.scene07-bottle-warped {
+    filter: url('#scene07-glass');
+}
+.scene07-flash {
+    position: absolute;
+    z-index: 2;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0;
+    background: radial-gradient(circle at 50% 50%, #fff 0%, #f6ecc9 32%, rgba(246, 227, 168, .5) 60%, transparent 82%);
+    mix-blend-mode: screen;
+}
+.scene07-flash-streak {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 140vmax;
+    height: 2px;
+    margin-top: -1px;
+    margin-left: -70vmax;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, .9), transparent);
+    opacity: 0;
+    transform-origin: 50% 50%;
+    will-change: transform, opacity;
+}
+.scene07-flash-streak:nth-child(1) {
+    transform: rotate(8deg) scaleX(.3);
+}
+.scene07-flash-streak:nth-child(2) {
+    transform: rotate(-14deg) scaleX(.3);
+}
+.scene07-flash-streak:nth-child(3) {
+    transform: rotate(32deg) scaleX(.3);
+}
+.scene07-enter {
+    position: absolute;
+    z-index: 3;
+    bottom: 12%;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 12px 32px;
+    border: 1px solid rgba(243, 236, 224, .5);
+    border-radius: 999px;
+    background: transparent;
+    color: #f3ece0;
+    font-family: $serif;
+    font-size: 15px;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    cursor: pointer;
+}
+@media (prefers-reduced-motion: reduce) {
+    .scene07 {
+        height: 100svh;
+    }
+    .scene07-frame {
+        position: relative;
+        opacity: 1;
+        visibility: visible;
+    }
+    .scene07-bottle-mask {
+        display: none;
+    }
+}

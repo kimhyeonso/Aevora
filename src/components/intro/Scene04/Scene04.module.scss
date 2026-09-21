@@ -1,0 +1,239 @@
+@use '../../../styles/variables.module' as *;
+
+.scene04 {
+    position: relative;
+    // Scene03 contributes no height of its own (see Scene03.module.scss), so
+    // this section begins right where Scene02's tail finishes — no negative
+    // margin needed. The frame itself is fixed and contributes no flow
+    // height (see .scene04-frame below), so this is pure scroll runway for
+    // its timeline, plus the trailing 100svh every scroll-driven scene needs
+    // so its final scrollTrigger position is actually reachable. Match
+    // Scene04's ScrollTrigger end (+=7400), which includes the closing
+    // wind-scatter exit after the second line holds.
+    height: calc(100svh + 7400px);
+    // Transparent, unlike Scene01/02's outer sections: those scenes are
+    // visible from the moment they mount, so an opaque wrapper never shows
+    // through anything. This one's own frame stays invisible until its
+    // timeline fades it in (see Scene04.jsx), and an opaque fill here would
+    // otherwise paint over Scene03 the instant this section's box scrolls
+    // into the viewport — before the frame itself ever gets a chance to fade in.
+    background: transparent;
+}
+.scene04-frame {
+    // Permanently fixed, like Scene03's frame, instead of GSAP-pinned: a
+    // pinned frame reverts to normal document flow once its scroll range
+    // ends and then physically scrolls away, which — since it holds nothing
+    // after the petal wipe finishes — briefly re-exposed Scene03's held
+    // frame (still sitting fixed underneath at z-index 0) before Scene05
+    // faded in. Fixed positioning means this frame never moves or unpins;
+    // it just stays put, invisible until faded in and visible (fully
+    // cleared, after the wipe) until Scene05 covers it from the front.
+    position: fixed;
+    inset: 0;
+    // Higher than Scene03's permanently-fixed frame (z-index: 0) so this
+    // covers it once faded in.
+    z-index: 1;
+    height: 100svh;
+    overflow: hidden;
+    isolation: isolate;
+    background: #0c0f08;
+    color: #f3e6d8;
+    // Hidden until Scene04.jsx's own timeline fades it in — without this,
+    // the frame (fully opaque by default) would already cover the viewport
+    // the moment it mounts, long before its own scroll range is reached.
+    opacity: 0;
+    visibility: hidden;
+}
+.scene04-background {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 76%;
+    transform-origin: 50% 90%;
+    filter: brightness(.92) saturate(1.06);
+    will-change: transform, opacity;
+}
+.scene04-background--two {
+    opacity: 0;
+    visibility: hidden;
+}
+.scene04-petals {
+    position: absolute;
+    z-index: 6;
+    inset: -12%;
+    overflow: hidden;
+    pointer-events: none;
+    opacity: 0;
+}
+.scene04-petals span {
+    position: absolute;
+    top: var(--petal-y);
+    left: var(--petal-x);
+    width: var(--petal-size);
+    opacity: 0;
+    will-change: transform, opacity;
+    animation: scene04-petal-drift var(--petal-duration) ease-in-out var(--petal-delay) infinite;
+}
+.scene04-petals svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    filter: drop-shadow(0 3px 4px rgba(0, 0, 0, .22));
+}
+@keyframes scene04-petal-drift {
+    0% {
+        opacity: 0;
+        transform: translate3d(-12vw, -14vh, 0) rotate(var(--petal-rotation));
+    }
+    12% {
+        opacity: .9;
+    }
+    55% {
+        opacity: .78;
+    }
+    100% {
+        opacity: 0;
+        transform: translate3d(34vw, 124vh, 0) rotate(calc(var(--petal-rotation) + 380deg));
+    }
+}
+.scene04-cursor-petals {
+    position: absolute;
+    z-index: 6;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+}
+.scene04-cursor-petal {
+    position: absolute;
+    display: block;
+    will-change: transform, opacity;
+}
+.scene04-cursor-petal svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    filter: drop-shadow(0 3px 4px rgba(0, 0, 0, .22));
+}
+.scene04-copy {
+    position: absolute;
+    z-index: 8;
+    top: 50%;
+    left: 50%;
+    margin: 0;
+    isolation: isolate;
+    color: #f6ecdf;
+    font-family: $serif;
+    font-size: clamp(24px, 2.6vw, 42px);
+    font-weight: 400;
+    letter-spacing: -.08em;
+    line-height: 1.35;
+    text-align: center;
+    text-shadow: 0 2px 18px rgba(0, 0, 0, .6);
+    transform: translateX(-50%);
+    white-space: nowrap;
+}
+.scene04-copy::before {
+    position: absolute;
+    z-index: -1;
+    top: 50%;
+    left: 50%;
+    width: min(760px, 88vw);
+    height: clamp(132px, 18vw, 210px);
+    content: '';
+    pointer-events: none;
+    opacity: var(--scene04-copy-backdrop, 0);
+    background: radial-gradient(ellipse at center, rgba(4, 4, 2, .92) 0%, rgba(4, 4, 2, .76) 45%, rgba(4, 4, 2, .32) 70%, transparent 100%);
+    filter: blur(7px);
+    transform: translate(-50%, -50%);
+}
+.scene04-copy--one, .scene04-copy--two {
+    top: 50%;
+}
+.scene04-shatter {
+    position: absolute;
+    z-index: 2;
+    inset: 0;
+    overflow: visible;
+    pointer-events: none;
+    opacity: 0;
+    // One filter pass over the whole composited group, not 160 separate
+    // ones — a `filter` on every individual tile is expensive enough (each
+    // forces its own compositing layer) to visibly stall scroll updates at
+    // this tile count.
+    filter: brightness(.92) saturate(1.06);
+}
+.scene04-shatter-tile {
+    position: absolute;
+    overflow: hidden;
+    will-change: transform, opacity;
+    // clip-path itself is set inline per tile (see BackgroundShatter.jsx) —
+    // each piece gets its own jittered polygon so no two read as identical
+    // stamped copies.
+}
+.scene04-shatter-tile img {
+    position: absolute;
+    display: block;
+    max-width: none;
+    pointer-events: none;
+    user-select: none;
+}
+.scene04-wipe-petals {
+    position: absolute;
+    z-index: 9;
+    inset: 0;
+    overflow: visible;
+    pointer-events: none;
+}
+.scene04-wipe-petal {
+    position: absolute;
+    display: block;
+    opacity: 0;
+    will-change: transform, opacity;
+}
+.scene04-wipe-petal svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    filter: drop-shadow(0 3px 5px rgba(0, 0, 0, .25));
+}
+.scene04-vignette {
+    position: absolute;
+    z-index: 7;
+    inset: 0;
+    pointer-events: none;
+    background: radial-gradient(ellipse at 50% 55%, transparent 35%, rgba(10, 8, 4, .34) 100%), linear-gradient(rgba(8, 6, 3, .26), rgba(8, 6, 3, .26));
+}
+@media (max-width: 700px) {
+    .scene04-copy {
+        max-width: calc(100vw - 48px);
+        font-size: clamp(22px, 6vw, 31px);
+        text-align: center;
+        white-space: normal;
+    }
+}
+@media (prefers-reduced-motion: reduce) {
+    .scene04 {
+        height: 100svh;
+    }
+    .scene04-frame {
+        // Reduced motion never creates the ScrollTrigger that would fade this
+        // in (see the early return in Scene04.jsx), so it must fall back to
+        // sitting normally in document flow — permanently fixed here would
+        // otherwise cover the whole viewport, including Scene01–03, from
+        // the moment this section mounts.
+        position: relative;
+        opacity: 1;
+        visibility: visible;
+    }
+    .scene04-background--one {
+        transform: scale(1.05);
+    }
+    .scene04-petals span {
+        animation: none;
+    }
+    .scene04-copy--two {
+        --scene04-copy-backdrop: 1;
+    }
+}

@@ -1,0 +1,287 @@
+@use '../../../styles/variables.module' as *;
+
+.scene03 {
+    position: relative;
+    z-index: 0;
+    // scene03-frame is fixed and contributes no flow height of its own, and
+    // Scene03 has no scroll-driven animation of its own to give runway to —
+    // everything here (droplet, splash, ripple, copy) is driven by Scene02's
+    // own pin timeline (see Scene02.jsx) so the reveal finishes by the time
+    // Scene02 releases, with no extra scroll distance needed afterward.
+    height: 0;
+}
+.scene03-frame {
+    position: fixed;
+    z-index: 0;
+    inset: 0;
+    height: 100svh;
+    overflow: hidden;
+    isolation: isolate;
+    background: #0b0d0a;
+    color: #dfe6dc;
+    pointer-events: none;
+}
+.scene03-background {
+    position: absolute;
+    z-index: 1;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 76%;
+    transform-origin: 50% 90%;
+    transform: scale(1.05);
+    filter: brightness(.9) saturate(.9);
+    will-change: transform, opacity, filter;
+}
+.scene03-light-falloff {
+    position: absolute;
+    z-index: 2;
+    inset: 0;
+    pointer-events: none;
+    background: linear-gradient(rgba(7, 11, 8, .42), rgba(4, 7, 5, .2));
+    opacity: 0;
+}
+.scene03-layer {
+    position: absolute;
+    inset: 0;
+    will-change: transform, opacity, filter;
+}
+
+// 1 — the last breath of Scene02's forest, carried over so the fall reads as
+// one continuous camera move rather than a cut. Placeholder tone only; swap
+// for a real cropped frame of Scene02's background once art exists.
+.scene03-forest-echo {
+    z-index: 1;
+    background: radial-gradient(ellipse 120% 90% at 50% 8%, #3a4a35 0%, #202e22 42%, #10160f 78%);
+    filter: blur(0px) brightness(.85) saturate(.85);
+}
+
+// 2 — the ground the camera arrives at. Placeholder gradients stand in for
+// /src/assets/intro/scene03/wet-ground-bg.webp (+ mid/front layers) — swap
+// each .scene03-ground-* background for a real <img> when art is ready.
+.scene03-ground {
+    z-index: 1;
+    opacity: 0;
+    transform: scale(1.05);
+    filter: blur(8px) brightness(.85) saturate(.85);
+    background:
+        radial-gradient(ellipse 60% 40% at 30% 30%, rgba(120, 135, 120, .22), transparent 60%),
+        radial-gradient(ellipse 46% 30% at 74% 60%, rgba(90, 100, 90, .18), transparent 65%),
+        linear-gradient(180deg, #26301f 0%, #232a1c 40%, #1a2016 68%, #10140d 100%);
+}
+.scene03-ground-mid {
+    z-index: 2;
+    background:
+        radial-gradient(ellipse 34% 14% at 24% 78%, rgba(30, 46, 34, .9), transparent 70%),
+        radial-gradient(ellipse 40% 16% at 68% 86%, rgba(22, 34, 26, .85), transparent 72%),
+        radial-gradient(ellipse 22% 10% at 88% 66%, rgba(58, 68, 52, .5), transparent 70%);
+}
+.scene03-ground-front {
+    z-index: 3;
+    background:
+        radial-gradient(ellipse 30% 12% at 12% 94%, rgba(12, 16, 11, .95), transparent 72%),
+        radial-gradient(ellipse 26% 11% at 92% 92%, rgba(14, 18, 13, .95), transparent 72%),
+        radial-gradient(ellipse 46% 20% at 50% 100%, rgba(8, 11, 8, .8), transparent 75%);
+}
+.scene03-mist {
+    z-index: 4;
+    opacity: 0;
+    background: linear-gradient(0deg, rgba(200, 210, 200, .22) 0%, rgba(200, 210, 200, .08) 30%, transparent 55%);
+    filter: blur(6px);
+    pointer-events: none;
+}
+.scene03-rain {
+    position: absolute;
+    z-index: 5;
+    inset: -5% -5%;
+    overflow: hidden;
+    pointer-events: none;
+    opacity: 0;
+}
+.scene03-rain-layer--back, .scene03-rain-layer--mid, .scene03-rain-layer--front {
+    position: absolute;
+    inset: 0;
+}
+.scene03-rain-layer--back i, .scene03-rain-layer--mid i, .scene03-rain-layer--front i {
+    position: absolute;
+    top: -10%;
+    left: var(--rain-x);
+    width: 1px;
+    background: linear-gradient(to bottom, transparent, rgba(200, 212, 216, .5));
+    animation: scene03-rain-fall var(--rain-duration) linear var(--rain-delay) infinite;
+    will-change: transform;
+}
+.scene03-rain-layer--back i {
+    height: 28px;
+    opacity: .22;
+}
+.scene03-rain-layer--mid i {
+    height: 44px;
+    opacity: .32;
+}
+.scene03-rain-layer--front i {
+    width: 2px;
+    height: 66px;
+    opacity: .44;
+}
+@keyframes scene03-rain-fall {
+    0% {
+        transform: translate3d(0, -10vh, 0);
+    }
+    100% {
+        transform: translate3d(var(--rain-drift), 120vh, 0);
+    }
+}
+
+// 6 — the impact point: lined up with the puddle's own ripple in the
+// background photo (background.png, object-position: center 76%), so the
+// splash + ripple fire right on top of it instead of floating over dry ground.
+.scene03-impact {
+    position: absolute;
+    z-index: 6;
+    left: 56%;
+    top: 78%;
+    width: 1px;
+    height: 1px;
+}
+.scene03-hero-droplet {
+    position: absolute;
+    z-index: 6;
+    top: -220px;
+    left: 56%;
+    width: 13px;
+    transform: translateX(-50%);
+    filter: drop-shadow(0 5px 11px rgba(0, 0, 0, .45));
+    pointer-events: none;
+    will-change: transform, opacity;
+}
+.scene03-hero-droplet svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    fill: rgba(216, 227, 229, .94);
+}
+.scene03-splash {
+    position: absolute;
+    left: 50%;
+    top: 0;
+    width: 60px;
+    height: 60px;
+    margin: -30px 0 0 -30px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(224, 230, 224, .55), transparent 70%);
+    opacity: 0;
+    pointer-events: none;
+}
+.scene03-ripple {
+    position: absolute;
+    left: 50%;
+    top: 0;
+    width: 1px;
+    height: 1px;
+    pointer-events: none;
+}
+.scene03-ripple-ring {
+    position: absolute;
+    left: -50px;
+    top: -18px;
+    width: 100px;
+    height: 36px;
+    border: 1px solid rgba(220, 225, 220, .4);
+    border-radius: 50%;
+    opacity: 0;
+    transform: scale(0);
+    will-change: transform, opacity;
+}
+.scene03-vignette {
+    position: absolute;
+    z-index: 7;
+    inset: 0;
+    pointer-events: none;
+    background: radial-gradient(ellipse at 50% 62%, transparent 30%, rgba(3, 6, 4, .32) 100%), linear-gradient(rgba(3, 5, 3, .4), rgba(3, 5, 3, .4));
+}
+.scene03-copy {
+    position: absolute;
+    z-index: 8;
+    top: 50%;
+    left: 50%;
+    margin: 0;
+    isolation: isolate;
+    color: #e8dfb7;
+    font-family: $serif;
+    font-size: clamp(24px, 2.6vw, 42px);
+    font-weight: 400;
+    letter-spacing: -.08em;
+    line-height: 1.35;
+    text-align: center;
+    text-shadow: 0 2px 18px rgba(0,0,0,.68);
+    transform: translate(-50%, -50%);
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+}
+.scene03-copy::before {
+    position: absolute;
+    z-index: -1;
+    top: 50%;
+    left: 50%;
+    width: min(760px, 88vw);
+    height: clamp(132px, 18vw, 210px);
+    content: '';
+    pointer-events: none;
+    opacity: var(--scene03-copy-backdrop, 0);
+    background: radial-gradient(ellipse at center, rgba(2, 5, 3, .94) 0%, rgba(2, 5, 3, .78) 45%, rgba(2, 5, 3, .34) 70%, transparent 100%);
+    filter: blur(7px);
+    transform: translate(-50%, -50%);
+}
+.scene03-copy-character {
+    display: inline-block;
+    will-change: transform, opacity, filter;
+}
+@media (max-width: 700px) {
+    .scene03-copy {
+        max-width: calc(100vw - 48px);
+        font-size: clamp(22px, 6vw, 31px);
+        text-align: center;
+        white-space: normal;
+    }
+}
+@media (prefers-reduced-motion: reduce) {
+    .scene03 {
+        height: 0;
+    }
+    .scene03-forest-echo {
+        opacity: 0;
+    }
+    .scene03-ground {
+        opacity: 1;
+        transform: none;
+        filter: brightness(.9) saturate(.88);
+    }
+    .scene03-mist {
+        opacity: .5;
+    }
+    .scene03-rain {
+        opacity: 0;
+    }
+    .scene03-rain-layer--back i, .scene03-rain-layer--mid i, .scene03-rain-layer--front i {
+        animation: none;
+    }
+    .scene03-hero-droplet {
+        display: none;
+    }
+    .scene03-copy {
+        opacity: 1;
+        visibility: visible;
+        --scene03-copy-backdrop: 1;
+    }
+    .scene03-splash {
+        display: none;
+    }
+    .scene03-ripple-ring {
+        opacity: .5;
+        transform: scale(1);
+        animation: none;
+    }
+}
