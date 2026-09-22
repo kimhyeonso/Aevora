@@ -2,33 +2,18 @@
 
 .scene05 {
     position: relative;
-    // Scene04's own section carries no leftover scroll debt into this one,
-    // so no negative margin is needed here either. Transparent for the same
-    // reason as Scene04's outer section: an opaque fill here would paint
-    // over Scene04 the instant this section's box scrolls into view, before
-    // the frame itself ever gets a chance to fade in (see Scene04.module.scss
-    // for the fuller explanation of this failure mode).
     height: calc(100svh + 3600px);
     background: transparent;
 }
 .scene05-frame {
-    // Permanently fixed, like Scene04/06's frames — never GSAP-pinned — so
-    // it can't physically unpin and scroll away later and briefly expose
-    // whatever's behind it. See the long comment on .scene04-frame in
-    // Scene04.module.scss for the full story.
     position: fixed;
     inset: 0;
     z-index: 1;
     height: 100svh;
     overflow: hidden;
     isolation: isolate;
-    // Deep, near-black — the imagery we've passed through falls away here
-    // on purpose, so the few glimpses that do flash through read as memory,
-    // not scenery.
     background: #050403;
     color: #f3ece0;
-    // Hidden until Scene05.jsx's own timeline fades it in — see the matching
-    // comment on .scene04-frame for why this can't just default to visible.
     opacity: 0;
     visibility: hidden;
 }
@@ -45,6 +30,12 @@
 }
 .scene05-glimpse--one, .scene05-glimpse--two, .scene05-glimpse--three {
     z-index: 1;
+}
+.scene05-particles {
+    position: absolute;
+    z-index: 1;
+    inset: 0;
+    pointer-events: none;
 }
 .scene05-line {
     position: absolute;
@@ -78,9 +69,6 @@
         height: 100svh;
     }
     .scene05-frame {
-        // Reduced motion never creates the ScrollTrigger that would fade
-        // this in (see the early return in Scene05.jsx), so it must fall
-        // back to sitting normally in document flow.
         position: relative;
         opacity: 1;
         visibility: visible;

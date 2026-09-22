@@ -2,21 +2,10 @@
 
 .scene06 {
     position: relative;
-    // The frame is fixed and contributes no flow height of its own (see
-    // .scene06-frame below), so this is pure scroll runway for its timeline,
-    // plus the trailing 100svh every scroll-driven scene needs so its final
-    // scrollTrigger position is actually reachable. Transparent for the same
-    // reason as Scene04/05's outer sections: an opaque fill here would paint
-    // over whatever scene comes before this one the instant this section's
-    // box scrolls into view, before the frame itself gets a chance to fade in.
     height: calc(100svh + 3800px);
     background: transparent;
 }
 .scene06-frame {
-    // Permanently fixed, like Scene04's frame — never GSAP-pinned — so it
-    // can't physically unpin and scroll away later and briefly expose
-    // whatever sits behind it (the bug fixed on Scene04; see the long
-    // comment on .scene04-frame in Scene04.module.scss for the full story).
     position: fixed;
     inset: 0;
     z-index: 1;
@@ -25,7 +14,6 @@
     isolation: isolate;
     background: #07080a;
     color: #f3ece0;
-    // Hidden until Scene06.jsx's own timeline fades it in.
     opacity: 0;
     visibility: hidden;
 }

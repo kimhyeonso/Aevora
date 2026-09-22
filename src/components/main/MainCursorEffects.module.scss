@@ -1,0 +1,68 @@
+.effects {
+    position: absolute;
+    z-index: 3;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+    mix-blend-mode: screen;
+}
+.fog, .sand, .ripple, .roseBloom, .roseDrift {
+    position: absolute;
+    pointer-events: none;
+}
+.fog {
+    width: 96px;
+    height: 58px;
+    border-radius: 50%;
+    background: radial-gradient(ellipse, rgba(247, 250, 242, .78) 0%, rgba(225, 235, 225, .3) 42%, transparent 72%);
+    filter: blur(10px);
+}
+.sand {
+    border-radius: 50%;
+    background: #edc986;
+    box-shadow: 0 0 5px rgba(255, 220, 155, .8);
+}
+.ripple {
+    width: 84px;
+    height: 52px;
+    border: 1px solid rgba(205, 239, 249, .82);
+    border-radius: 50%;
+    background: radial-gradient(ellipse, rgba(225, 248, 255, .14) 0%, rgba(190, 226, 241, .06) 38%, transparent 70%);
+    box-shadow: inset 0 0 12px rgba(220, 248, 255, .4), 0 0 12px rgba(174, 224, 241, .35);
+    backdrop-filter: blur(1px);
+}
+.roseBloom {
+    width: 34px;
+    height: 34px;
+}
+.roseBloom::after {
+    position: absolute;
+    z-index: 2;
+    top: 50%;
+    left: 50%;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #f7dbd4;
+    content: '';
+    transform: translate(-50%, -50%);
+}
+.rosePetal {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 12px;
+    height: 21px;
+    border-radius: 72% 28% 70% 30%;
+    background: var(--rose-color);
+    box-shadow: inset 1px 1px 3px rgba(255, 255, 255, .42);
+    transform: translate(-50%, -100%) rotate(var(--petal-angle)) translateY(-3px);
+    transform-origin: 50% 100%;
+}
+.roseDrift {
+    width: 10px;
+    height: 16px;
+    border-radius: 72% 28% 70% 30%;
+    background: var(--rose-color);
+    box-shadow: inset 1px 1px 3px rgba(255, 255, 255, .42);
+}

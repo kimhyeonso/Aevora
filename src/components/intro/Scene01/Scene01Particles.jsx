@@ -31,8 +31,7 @@ export default function Scene01Particles({ reducedMotion, frameRef, className })
       })
     }
     const resize = () => {
-      const bounds = frame.getBoundingClientRect()
-      width = bounds.width; height = bounds.height; ratio = Math.min(window.devicePixelRatio || 1, 2)
+      width = frame.offsetWidth; height = frame.offsetHeight; ratio = Math.min(window.devicePixelRatio || 1, 2)
       canvas.width = Math.round(width * ratio); canvas.height = Math.round(height * ratio)
       canvas.style.width = `${width}px`; canvas.style.height = `${height}px`
       context.setTransform(ratio, 0, 0, ratio, 0, 0)

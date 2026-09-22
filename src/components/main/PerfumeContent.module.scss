@@ -1,0 +1,48 @@
+@use '../../styles/variables.module' as *;
+
+.content {
+    display: grid;
+    justify-items: center;
+    gap: 6px;
+    max-width: 240px;
+    text-align: center;
+    color: #f6f4ec;
+    text-shadow: 0 2px 12px rgba(0, 0, 0, .4);
+}
+.name {
+    font-family: $serif;
+    font-size: 17px;
+    font-weight: 400;
+    letter-spacing: .06em;
+}
+.subtitle {
+    margin: 0;
+    font-family: $serif;
+    font-style: italic;
+    font-size: 13px;
+    opacity: .85;
+}
+.description {
+    margin: 2px 0 4px;
+    font-family: $sans;
+    font-size: 11px;
+    line-height: 1.6;
+    opacity: .7;
+}
+.cta {
+    padding: 0;
+    border: none;
+    background: none;
+    font-family: $sans;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: .12em;
+    color: inherit;
+    cursor: pointer;
+    opacity: .9;
+    transition: opacity .3s ease, letter-spacing .3s ease;
+}
+.cta:hover, .cta:focus-visible {
+    opacity: 1;
+    letter-spacing: .18em;
+}

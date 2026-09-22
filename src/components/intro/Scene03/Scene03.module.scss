@@ -3,11 +3,6 @@
 .scene03 {
     position: relative;
     z-index: 0;
-    // scene03-frame is fixed and contributes no flow height of its own, and
-    // Scene03 has no scroll-driven animation of its own to give runway to —
-    // everything here (droplet, splash, ripple, copy) is driven by Scene02's
-    // own pin timeline (see Scene02.jsx) so the reveal finishes by the time
-    // Scene02 releases, with no extra scroll distance needed afterward.
     height: 0;
 }
 .scene03-frame {
@@ -48,18 +43,12 @@
     will-change: transform, opacity, filter;
 }
 
-// 1 — the last breath of Scene02's forest, carried over so the fall reads as
-// one continuous camera move rather than a cut. Placeholder tone only; swap
-// for a real cropped frame of Scene02's background once art exists.
 .scene03-forest-echo {
     z-index: 1;
     background: radial-gradient(ellipse 120% 90% at 50% 8%, #3a4a35 0%, #202e22 42%, #10160f 78%);
     filter: blur(0px) brightness(.85) saturate(.85);
 }
 
-// 2 — the ground the camera arrives at. Placeholder gradients stand in for
-// /src/assets/intro/scene03/wet-ground-bg.webp (+ mid/front layers) — swap
-// each .scene03-ground-* background for a real <img> when art is ready.
 .scene03-ground {
     z-index: 1;
     opacity: 0;
@@ -134,9 +123,6 @@
     }
 }
 
-// 6 — the impact point: lined up with the puddle's own ripple in the
-// background photo (background.png, object-position: center 76%), so the
-// splash + ripple fire right on top of it instead of floating over dry ground.
 .scene03-impact {
     position: absolute;
     z-index: 6;

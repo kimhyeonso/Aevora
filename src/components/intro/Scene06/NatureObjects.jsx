@@ -1,10 +1,5 @@
 import styles from './Scene06.module.scss'
 
-// The same handful of motifs the whole intro has been built from — a petal
-// (Scene04), a raindrop (Scene02/03), a leaf (Scene02), a spark of light,
-// and a tree — reappear here as flat vector icons so Scene06 can pull them
-// together into the bottle without pulling in any of the earlier scenes'
-// actual photos or particle systems.
 const PETAL_PATH = 'M12 2C6.5 6 3 11 3 15.2 3 19.5 7 22 12 22s9-2.5 9-6.8C21 11 17.5 6 12 2Z'
 const DROPLET_PATH = 'M12 0C12 0 2 15 2 22a10 10 0 0 0 20 0C22 15 12 0 12 0Z'
 const LEAF_PATH = 'M12 2C4 8 4 16 12 22 20 16 20 8 12 2Z M12 4V20'

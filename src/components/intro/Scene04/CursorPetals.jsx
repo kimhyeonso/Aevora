@@ -14,10 +14,6 @@ function createPetalEl(color, size) {
   return el
 }
 
-// Lets the wind already blowing through Scene04 (see PetalDrift) pick up
-// extra petals from wherever the visitor's cursor moves, instead of only
-// drifting in from off-screen — a direct, playful response to input that
-// the ambient drift alone can't provide.
 export default function CursorPetals({ frameRef, active }) {
   const containerRef = useRef(null)
 

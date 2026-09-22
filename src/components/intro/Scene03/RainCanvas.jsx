@@ -10,7 +10,6 @@ function buildDrops(count, { duration, drift }) {
   }))
 }
 
-// Calmer than Scene02's rain (density ~80) — the storm is settling, ~35.
 const back = buildDrops(15, { duration: 1.9, drift: 5 })
 const mid = buildDrops(11, { duration: 1.3, drift: 9 })
 const front = buildDrops(6, { duration: 0.95, drift: 14 })

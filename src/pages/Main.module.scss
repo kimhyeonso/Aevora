@@ -1,0 +1,290 @@
+@use '../styles/variables.module' as *;
+
+.main {
+    background: $ink;
+}
+.hero {
+    position: relative;
+    height: 100svh;
+    min-height: 640px;
+    overflow: hidden;
+}
+
+.veilLeft {
+    position: absolute;
+    z-index: 2;
+    inset: 0;
+    background: linear-gradient(100deg, rgba(6, 7, 5, .62) 0%, rgba(6, 7, 5, .34) 42%, transparent 66%);
+    pointer-events: none;
+}
+.veilBottom {
+    position: absolute;
+    z-index: 2;
+    inset: 0;
+    background: linear-gradient(0deg, rgba(6, 7, 5, .58) 0%, transparent 26%);
+    pointer-events: none;
+}
+.cursorParticles {
+    position: absolute;
+    z-index: 3;
+    inset: 0;
+    pointer-events: none;
+    mix-blend-mode: screen;
+}
+
+.copy {
+    position: absolute;
+    z-index: 3;
+    top: 50%;
+    left: clamp(28px, 6vw, 96px);
+    max-width: 640px;
+    transform: translateY(-54%);
+    color: #f6f4ec;
+}
+.copy--blanche {
+    top: clamp(86px, 16vh, 180px);
+    right: auto;
+    left: 50%;
+    width: min(680px, calc(100vw - 48px));
+    max-width: none;
+    text-align: center;
+    transform: translateX(-50%);
+}
+.copy--blanche .lede {
+    margin-right: auto;
+    margin-left: auto;
+}
+.copy--blanche .actions {
+    justify-content: center;
+}
+.copy--bal {
+    top: auto;
+    right: auto;
+    bottom: clamp(108px, 17vh, 190px);
+    left: clamp(28px, 6vw, 96px);
+    width: min(560px, calc(100vw - 56px));
+    max-width: none;
+    text-align: left;
+    transform: none;
+}
+.copy--mojave {
+    top: clamp(86px, 16vh, 180px);
+    right: clamp(28px, 6vw, 96px);
+    left: auto;
+    width: min(620px, calc(100vw - 56px));
+    text-align: right;
+    transform: none;
+    color: #4c382d;
+    text-shadow: 0 1px 16px rgba(255, 249, 236, .42);
+}
+.copy--mojave .eyebrow {
+    color: rgba(76, 56, 45, .76);
+}
+.copy--mojave .lede {
+    margin-left: auto;
+    color: rgba(76, 56, 45, .86);
+}
+.copy--mojave .actions {
+    justify-content: flex-end;
+}
+.copy--mojave .primaryBtn {
+    border-color: #513b2f;
+    background: #513b2f;
+    color: #fffaf0;
+}
+.copy--mojave .secondaryBtn {
+    border-color: rgba(81, 59, 47, .74);
+    background: rgba(255, 250, 239, .36);
+    color: #513b2f;
+}
+.copy--mojave .secondaryBtn:hover, .copy--mojave .secondaryBtn:focus-visible {
+    border-color: #513b2f;
+    background: rgba(255, 250, 239, .72);
+}
+.copy--rose {
+    top: 50%;
+    right: auto;
+    left: clamp(28px, 7vw, 112px);
+    width: min(520px, calc(100vw - 56px));
+    max-width: none;
+    text-align: left;
+    transform: translateY(-50%);
+}
+.eyebrow {
+    margin: 0 0 18px;
+    font-family: $sans;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .28em;
+    color: rgba(246, 244, 236, .75);
+}
+.headline {
+    margin: 0 0 22px;
+    font-family: $serif;
+    font-size: clamp(28px, 3.6vw, 46px);
+    font-weight: 400;
+    letter-spacing: -.01em;
+    line-height: 1.34;
+    white-space: nowrap;
+}
+.headline em {
+    font-style: italic;
+}
+.lede {
+    margin: 0 0 34px;
+    max-width: 40ch;
+    font-family: $sans;
+    font-size: clamp(13px, 1.1vw, 15px);
+    line-height: 1.75;
+    white-space: pre-line;
+    color: rgba(246, 244, 236, .78);
+}
+.actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+}
+.primaryBtn, .secondaryBtn {
+    padding: 15px 30px;
+    font-family: $sans;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .12em;
+    cursor: pointer;
+    transition: opacity .3s ease, background .3s ease, border-color .3s ease;
+}
+.primaryBtn {
+    border: 1px solid $ink;
+    background: #f6f4ec;
+    color: $ink;
+}
+.primaryBtn:hover, .primaryBtn:focus-visible {
+    opacity: .85;
+}
+.secondaryBtn {
+    border: 1px solid rgba(246, 244, 236, .7);
+    background: transparent;
+    color: #f6f4ec;
+}
+.secondaryBtn:hover, .secondaryBtn:focus-visible {
+    background: rgba(246, 244, 236, .12);
+    border-color: #f6f4ec;
+}
+
+.bottleStage {
+    position: absolute;
+    z-index: 3;
+    right: clamp(30px, 8vw, 130px);
+    bottom: 15%;
+    display: grid;
+    justify-items: center;
+    gap: 16px;
+}
+.bottleStage--mojave {
+    right: auto;
+    left: clamp(30px, 8vw, 130px);
+}
+
+.selectorRow {
+    position: absolute;
+    z-index: 3;
+    left: 50%;
+    bottom: 9%;
+    transform: translateX(-50%);
+}
+
+.scrollHint {
+    position: absolute;
+    z-index: 3;
+    left: 50%;
+    bottom: 2.6%;
+    transform: translateX(-50%);
+    display: grid;
+    justify-items: center;
+    gap: 8px;
+    color: rgba(246, 244, 236, .6);
+}
+.scrollHint span {
+    font-family: $sans;
+    font-size: 9px;
+    letter-spacing: .16em;
+}
+.scrollHint svg {
+    width: 13px;
+    height: auto;
+    animation: main-scroll-bounce 1.8s ease-in-out infinite;
+}
+@keyframes main-scroll-bounce {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(4px);
+    }
+}
+
+.pillars {
+    position: absolute;
+    z-index: 3;
+    left: clamp(28px, 6vw, 44px);
+    bottom: 2.6%;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    font-family: $sans;
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: .1em;
+    color: rgba(246, 244, 236, .55);
+}
+.pillars li + li {
+    margin-top: 2px;
+}
+.pillars li::before {
+    content: '— ';
+}
+.tagline {
+    position: absolute;
+    z-index: 3;
+    right: clamp(28px, 6vw, 44px);
+    bottom: 2.6%;
+    margin: 0;
+    max-width: 22ch;
+    text-align: right;
+    font-family: $sans;
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: .1em;
+    line-height: 1.6;
+    white-space: pre-line;
+    color: rgba(246, 244, 236, .55);
+}
+
+@media (max-width: 860px) {
+    .copy {
+        left: 24px;
+        right: 24px;
+        max-width: none;
+    }
+    .headline {
+        white-space: normal;
+    }
+    .bottleStage {
+        display: none;
+    }
+    .pillars, .tagline {
+        display: none;
+    }
+    .selectorRow {
+        display: none;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .cursorParticles {
+        display: none;
+    }
+    .scrollHint svg {
+        animation: none;
+    }
+}

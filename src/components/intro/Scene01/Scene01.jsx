@@ -64,16 +64,16 @@ export default function Scene01() {
     return () => context.revert()
   }, [reducedMotion])
 
-  return <section className={styles.scene01} ref={sceneRef} aria-label="The origin of scent">
+  return <section id="scene01" className={styles.scene01} ref={sceneRef} aria-label="The origin of scent">
     <div className={styles['scene01-frame']} ref={frameRef}>
       <div className={styles['scene01-world']} aria-hidden="true">
-        <img className={styles['scene01-background']} src={forestBackground} alt="" />
-        <img className={`${styles['scene01-tree']} ${styles['scene01-tree--left']}`} src={leftTree} alt="" />
-        <img className={`${styles['scene01-tree']} ${styles['scene01-tree--right']}`} src={rightTree} alt="" />
+        <img className={styles['scene01-background']} src={forestBackground} alt="안개 낀 숲길" />
+        <img className={`${styles['scene01-tree']} ${styles['scene01-tree--left']}`} src={leftTree} alt="숲길 왼쪽의 나무" />
+        <img className={`${styles['scene01-tree']} ${styles['scene01-tree--right']}`} src={rightTree} alt="숲길 오른쪽의 나무" />
       </div>
       <div className={styles['scene01-overlay']} aria-hidden="true" />
-      <img className={`${styles['scene01-fog']} ${styles['scene01-fog--left']}`} src={fogImage} alt="" aria-hidden="true" />
-      <img className={`${styles['scene01-fog']} ${styles['scene01-fog--right']}`} src={fogImage} alt="" aria-hidden="true" />
+      <img className={`${styles['scene01-fog']} ${styles['scene01-fog--left']}`} src={fogImage} alt="숲 왼쪽을 감싼 안개" aria-hidden="true" />
+      <img className={`${styles['scene01-fog']} ${styles['scene01-fog--right']}`} src={fogImage} alt="숲 오른쪽을 감싼 안개" aria-hidden="true" />
       <div className={styles['scene01-pointer-reveal']} aria-hidden="true" />
       <Scene01Particles reducedMotion={reducedMotion} frameRef={frameRef} className={styles['scene01-particles']} />
       <p className={`${styles['scene01-copy']} ${styles['scene01-copy--first']}`}>아주 오래전,</p>

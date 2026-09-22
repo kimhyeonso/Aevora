@@ -1,0 +1,33 @@
+.intro-audio-toggle {
+    position: fixed;
+    z-index: 20;
+    left: 34px;
+    bottom: 32px;
+    display: grid;
+    place-items: center;
+    width: 34px;
+    height: 34px;
+    padding: 0;
+    border: none;
+    background: transparent;
+    color: white;
+    mix-blend-mode: difference;
+    cursor: pointer;
+    opacity: .78;
+    transition: opacity .3s ease, transform .3s ease;
+}
+.intro-audio-toggle:hover, .intro-audio-toggle:focus-visible {
+    opacity: 1;
+    transform: scale(1.08);
+}
+.intro-audio-toggle svg {
+    display: block;
+    width: 22px;
+    height: 22px;
+}
+@media (max-width: 640px) {
+    .intro-audio-toggle {
+        left: 20px;
+        bottom: 20px;
+    }
+}

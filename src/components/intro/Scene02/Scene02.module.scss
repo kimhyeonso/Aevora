@@ -2,15 +2,7 @@
 
 .scene02 {
     position: relative;
-    // Pulled up so its pin engages, already at the top of the viewport,
-    // exactly when Scene01's frame starts its final fade-out (the last
-    // 560px of its 2800px pin) — see Scene01.jsx. This lets Scene02 sit
-    // fully in place behind Scene01 for a true crossfade, instead of it
-    // sliding up into view afterward.
     margin-top: calc(-100svh - 560px);
-    // Match Scene02's ScrollTrigger end (+=4600), including the extended
-    // tail where the hero droplet hands off into Scene03, lands, and
-    // Scene03's own copy fades in right behind it.
     height: calc(100svh + 4600px);
     background: #09100b;
 }

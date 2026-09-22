@@ -12,11 +12,6 @@ const petals = Array.from({ length: PETAL_COUNT }, (_, index) => ({
   color: COLORS[index % COLORS.length],
 }))
 
-// A dense, deliberate burst distinct from the ambient PetalDrift/CursorPetals
-// layers: this one only fires once, at the very end of Scene04's timeline
-// (see Scene04.jsx), sweeping every petal off to the right together so the
-// whole bloom reads as being carried away by the wind rather than the scene
-// simply cutting or sliding into Scene05.
 export default function PetalWipe() {
   return <div className={styles['scene04-wipe-petals']} aria-hidden="true">
     {petals.map((p) => <span key={p.key} className={styles['scene04-wipe-petal']} style={{ left: p.x, top: p.y, width: `${p.size}px` }}>

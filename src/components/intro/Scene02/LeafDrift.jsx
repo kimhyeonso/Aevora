@@ -22,6 +22,6 @@ const leaves = [
 
 export default function LeafDrift() {
   return <div className={styles['scene02-leaves']} aria-hidden="true">
-    {leaves.map(([source, x, y, size, duration, delay, rotation], index) => <span key={`${source}-${index}`} style={{ '--leaf-x': x, '--leaf-y': y, '--leaf-size': size, '--leaf-duration': duration, '--leaf-delay': delay, '--leaf-rotation': rotation }}><img src={source} alt="" /></span>)}
+    {leaves.map(([source, x, y, size, duration, delay, rotation], index) => <span key={`${source}-${index}`} style={{ '--leaf-x': x, '--leaf-y': y, '--leaf-size': size, '--leaf-duration': duration, '--leaf-delay': delay, '--leaf-rotation': rotation }}><img src={source} alt="바람에 흩날리는 나뭇잎" /></span>)}
   </div>
 }

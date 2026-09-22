@@ -2,20 +2,10 @@
 
 .scene07 {
     position: relative;
-    // The frame is fixed and contributes no flow height of its own, so this
-    // is pure scroll runway for the camera-rush timeline, plus the trailing
-    // 100svh every scroll-driven scene needs so its final scrollTrigger
-    // position is actually reachable. Transparent for the same reason as
-    // every scene since Scene04: an opaque fill here would paint over
-    // Scene06 the instant this section's box scrolls into view, before the
-    // frame itself gets a chance to fade in.
     height: calc(100svh + 2600px);
     background: transparent;
 }
 .scene07-frame {
-    // Permanently fixed, like every scene since Scene04 — never
-    // GSAP-pinned — so it can't physically unpin and scroll away later and
-    // briefly expose whatever's behind it.
     position: fixed;
     inset: 0;
     z-index: 1;
@@ -27,8 +17,6 @@
     opacity: 0;
     visibility: hidden;
 }
-// Same position and size as .scene06-bottle (top: 44%, same viewBox height)
-// on purpose — see the comment on BOTTLE_PATH in Scene07.jsx for why.
 .scene07-bottle-anchor {
     position: absolute;
     top: 44%;
@@ -57,10 +45,15 @@
     stroke-linecap: round;
     vector-effect: non-scaling-stroke;
 }
-// The second, filtered copy of the bottle, revealed only through a small
-// circular window that follows the cursor (see Scene07.jsx) — this is what
-// keeps the "glass bends near your cursor" effect localized instead of
-// warping the whole screen.
+.scene07-bottle-outline-mask {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    mask-repeat: no-repeat;
+    -webkit-mask-repeat: no-repeat;
+    mask-image: radial-gradient(circle 100px at 50% 50%, transparent 55%, #000 100%);
+    -webkit-mask-image: radial-gradient(circle 100px at 50% 50%, transparent 55%, #000 100%);
+}
 .scene07-bottle-mask {
     position: absolute;
     inset: 0;
@@ -132,5 +125,9 @@
     }
     .scene07-bottle-mask {
         display: none;
+    }
+    .scene07-bottle-outline-mask {
+        mask-image: none;
+        -webkit-mask-image: none;
     }
 }
