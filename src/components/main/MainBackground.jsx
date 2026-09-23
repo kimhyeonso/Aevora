@@ -2,7 +2,10 @@ import { useEffect, useRef } from 'react'
 import { gsap } from '../../utils/gsapSetup'
 import styles from './MainBackground.module.scss'
 
-export default function MainBackground({ perfumes, activeId }) {
+const PARALLAX_RANGE_X = 26
+const PARALLAX_RANGE_Y = 16
+
+export default function MainBackground({ perfumes, activeId, reducedMotion }) {
   const containerRef = useRef(null)
   const previousId = useRef(activeId)
 
@@ -23,6 +26,28 @@ export default function MainBackground({ perfumes, activeId }) {
     previousId.current = activeId
     return () => context.revert()
   }, [activeId])
+
+  useEffect(() => {
+    const container = containerRef.current
+    if (!container || reducedMotion) return undefined
+
+    gsap.set(container, { scale: 1.08, transformOrigin: '50% 50%' })
+    const moveX = gsap.quickTo(container, 'x', { duration: 1.1, ease: 'power3.out' })
+    const moveY = gsap.quickTo(container, 'y', { duration: 1.1, ease: 'power3.out' })
+
+    const handlePointerMove = (event) => {
+      const relX = event.clientX / window.innerWidth - 0.5
+      const relY = event.clientY / window.innerHeight - 0.5
+      moveX(relX * -PARALLAX_RANGE_X)
+      moveY(relY * -PARALLAX_RANGE_Y)
+    }
+
+    window.addEventListener('pointermove', handlePointerMove)
+    return () => {
+      window.removeEventListener('pointermove', handlePointerMove)
+      gsap.set(container, { x: 0, y: 0, scale: 1 })
+    }
+  }, [reducedMotion])
 
   return <div className={styles.background} ref={containerRef} aria-hidden="true">
     {perfumes.map((perfume, index) => (

@@ -49,7 +49,7 @@ export default function Main() {
     <MainNavigation color={active.navigationColor ?? active.textColor} />
 
     <section className={styles.hero} ref={heroRef}>
-      <MainBackground perfumes={perfumes} activeId={active.id} />
+      <MainBackground perfumes={perfumes} activeId={active.id} reducedMotion={reducedMotion} />
       <ScentTransition activeId={active.id} />
       {active.effect === 'dim'
         ? <MainCursorParticles frameRef={heroRef} reducedMotion={reducedMotion} className={styles.cursorParticles} />
