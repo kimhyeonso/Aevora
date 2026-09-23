@@ -4,14 +4,14 @@ import styles from './MainCursorEffects.module.scss'
 
 const MOVE_THRESHOLD = {
   light: 22,
-  dust: 8,
+  dust: 4,
   sunlight: 24,
   petals: 20,
 }
 
 const MAX_NODES = {
   light: 18,
-  dust: 64,
+  dust: 96,
   sunlight: 16,
   petals: 36,
 }
@@ -78,25 +78,25 @@ export default function MainCursorEffects({ frameRef, reducedMotion, effect }) {
     }
 
     const spawnSand = (x, y, direction) => {
-      const count = 5 + Math.floor(Math.random() * 3)
+      const count = 8 + Math.floor(Math.random() * 4)
       for (let index = 0; index < count; index += 1) {
         const grain = document.createElement('span')
         grain.className = styles.sand
-        const size = 1 + Math.random() * 2.2
+        const size = 2.4 + Math.random() * 2.8
         grain.style.width = `${size}px`
         grain.style.height = `${size}px`
-        positionNode(grain, x + (Math.random() - .5) * 10, y + (Math.random() - .5) * 10)
+        positionNode(grain, x + (Math.random() - .5) * 16, y + (Math.random() - .5) * 16)
         animateNode(grain, {
           xPercent: -50,
           yPercent: -50,
           scale: .5,
-          autoAlpha: .9,
+          autoAlpha: .98,
         }, {
-          x: -direction.x * (18 + Math.random() * 34) + (Math.random() - .5) * 32,
-          y: -direction.y * (10 + Math.random() * 24) + (Math.random() - .5) * 28,
-          scale: .1,
+          x: -direction.x * (28 + Math.random() * 48) + (Math.random() - .5) * 42,
+          y: -direction.y * (16 + Math.random() * 34) + (Math.random() - .5) * 36,
+          scale: .2,
           autoAlpha: 0,
-          duration: .65 + Math.random() * .4,
+          duration: .95 + Math.random() * .45,
           ease: 'power2.out',
         })
       }

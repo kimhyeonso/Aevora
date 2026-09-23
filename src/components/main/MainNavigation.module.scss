@@ -6,39 +6,58 @@
     top: 0;
     left: 0;
     width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+    box-sizing: border-box;
+    display: grid;
+    justify-items: center;
+    gap: 26px;
     padding: 30px 44px;
-    color: #fff;
-    mix-blend-mode: difference;
+    color: var(--nav-color, #fff);
+    transition: color .8s ease;
 }
 .logo {
+    position: static;
     display: block;
     height: 39px;
-    width: auto;
+    width: 128px;
+    color: inherit;
+    background-color: currentColor;
+    -webkit-mask: var(--logo-mask) center / contain no-repeat;
+    mask: var(--logo-mask) center / contain no-repeat;
+    filter: drop-shadow(0 2px 8px rgba(0, 0, 0, .36));
+    text-decoration: none;
+    transition: background-color .8s ease, filter .8s ease;
 }
 .links {
     display: flex;
+    margin: 0;
     gap: 34px;
 }
-.links button {
+.links a {
     padding: 0;
     border: none;
     background: none;
     font-family: $sans;
-    font-size: 11px;
-    font-weight: 600;
+    font-size: 12px;
+    font-weight: 500;
     letter-spacing: .12em;
     color: inherit;
+    text-decoration: none;
     cursor: pointer;
+    text-shadow: 0 1px 6px rgba(0, 0, 0, .3);
+    transition: color .8s ease;
 }
 
 @media (max-width: 860px) {
     .nav {
         padding: 22px 22px;
+        gap: 14px;
     }
     .links {
-        display: none;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 16px 22px;
+    }
+    .links a {
+        font-size: 11px;
     }
 }

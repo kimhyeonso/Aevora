@@ -19,8 +19,8 @@
 }
 .sand {
     border-radius: 50%;
-    background: #edc986;
-    box-shadow: 0 0 5px rgba(255, 220, 155, .8);
+    background: radial-gradient(circle at 35% 35%, #fff4ca 0%, #e0a75c 42%, #8a552a 100%);
+    box-shadow: 0 0 7px rgba(255, 217, 146, .96), 0 0 2px rgba(83, 48, 21, .72);
 }
 .ripple {
     width: 84px;
